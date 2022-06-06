@@ -5,6 +5,7 @@
 }
 .has-text-gray-light{
   color: #aaa;
+}
 .tabs {
   width: 50%;
   display: flex;
@@ -20,3 +21,4 @@
 
 .active {
   color: #4281ff;
+}  

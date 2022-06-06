@@ -11,5 +11,5 @@ function TodoItem({item, onClick}) {
       {item.text}
     </label>
   );
-
+}
 export default TodoItem;
