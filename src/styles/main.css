@@ -5,3 +5,18 @@
 }
 .has-text-gray-light{
   color: #aaa;
+.tabs {
+  width: 50%;
+  display: flex;
+  justify-content: space-around
+}
+
+.tab {
+  cursor: pointer;
+  margin: 0;
+  width: 100%;
+  text-align: center;
+}
+
+.active {
+  color: #4281ff;

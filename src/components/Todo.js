@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 /* 
   【Todoのデータ構成】
@@ -26,7 +26,7 @@ function Todo() {
     { key: getKey(), text: '明日の準備をする', done: false },
     /* テストコード 終了 */
   ]);
-  const onUppdate = (data) => {
+  const onUpdate = (data) => {
   const index = items.findIndex(item => item.key === data.key);
   const new_arr = [...items];
   if(index != -1){
@@ -35,11 +35,25 @@ function Todo() {
   }
 };
   const [content, setContent] = useState('');
+  const [tabSelected, setTabSelected] = useState(0);
 
+  useEffect(() => {
+
+  }, []);
+
+  const tabs = ['全て', '未完了', '完了済み'];
   const onSubmit = () => {
     putItems([...items, { key: getKey(), text: content, done: false }]);
     setContent('');
   }  
+   const getLists = () => {
+    switch(tabSelected){
+      case 0: return items;
+      case 1: return items.filter(item => item.done);
+      case 2: return items.filter(item => !item.done);
+      default: return [];
+    }
+  }
   return (
     <div className="panel">
       <div className="panel-heading">
@@ -52,12 +66,16 @@ function Todo() {
           if(e.key === 'Enter')
             onSubmit()
         }}/>
-      {items.map(item => (
-         <TodoItem
-        key={item.key}
-        item={item}
-        onClick={(data) => onUppdate(data)}
-      />
+            <div className='tabs'>
+        {
+          tabs.map((tab, index) => (<div className={`tab ${index === tabSelected ? 'active' : ''}`} key={index} onClick={() => setTabSelected(index)} >{tab}</div>))
+        }
+      </div>
+
+      {getLists().map(item => (
+        <label key={item.key} className="panel-block">
+          <TodoItem item={item} onClick={(data) => onUpdate(data)} />
+        </label>
       ))}
       <div className="panel-block">
         {items.length} items
